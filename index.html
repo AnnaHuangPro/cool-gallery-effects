@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			走廊海报
+		</title>
+		<link rel="stylesheet" type="text/css" href="index.css">
+	</head>
+	<body onselectstart="return false;">
+		<!-- 2.改写视图为模板字符串 -->
+		<noscript><p>
+			本网页需要浏览器支持（启用）javascript
+		</p></noscript>
+		<div class="wrap" id="wrap">
+			<!-- photo负责平移和旋转 -->
+			<div class="photo photo_front" onclick="turn(this)" id="photo_{{index}}">
+				<!-- photo_wrap 负责翻转 -->
+				<div class="photo_wrap">
+					<div class="side side-front">
+						<p class="image"><img src="photo/{{image}}"></p>
+						<p class="caption">{{caption}}</p>
+					</div>
+					<div class="side side-back">
+						<p class="descript">{{desc}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="index.js"></script>
+	</body>
+</html>
