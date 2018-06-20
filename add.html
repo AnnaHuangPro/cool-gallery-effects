@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #add{
+            position: relative;
+            float: right;
+            bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="add" onmousemove="cnvs_getCoordinates(event)" onmouseout="cnvs_clearCoordinates()">
+    Your browser does not support the canvas element.
+</canvas>
+
+<br />
+<br />
+<br />
+<div id="xycoordinates"></div>
+
+<script src="add.js"></script>
+</body>
+</html>

@@ -1,57 +1,5 @@
 /*"use strict";是一个编译指示，用于告诉支持javascript的引擎切换到严格模式*/
 
-var data=[];
-
-var dataStr = '\
-1、金福南杀人事件始末<br>\
-<br>\
-类    型：剧情 / 惊悚 / 恐怖 / 犯罪 <br>\
-主    演：徐英姬，池成媛，黄民浩，朴正学，白秀莲，黄智橹 <br>\
-片    长：116分钟（韩国） <br>\
-上映时间：2010年9月2日<br>\
-拍摄地点：韩国 <br>\
-拍摄日期：2010年 <br>\
-导    演：张哲洙 <br>\
-编    剧：张哲洙，崔观英<br>\
-<br>\
-<br>\
-2、灵魂摆渡黄泉<br>\
-<br>\
-中文名：灵魂摆渡·黄泉 <br>\
-出品公司：爱奇艺 <br>\
-制片地区：中国大陆 <br>\
-拍摄地点：北京怀柔 <br>\
-拍摄日期：2017年5月27日 <br>\
-导    演：巨兴茂 <br>\
-编    剧：小吉祥天 <br>\
-类    型：古装、神话、爱情 <br>\
-主    演：于毅，何花，王昌瑞，岳丽娜，倪虹洁，巨兴茂，鲁佳妮<br>\
-<br>\
-<br>\
-3、肖申克的救赎<br>\
-<br>\
-导演: 弗兰克·德拉邦特<br>\
-编剧: 弗兰克·德拉邦特 / 斯蒂芬·金<br>\
-主演: 蒂姆·罗宾斯 / 摩根·弗里曼 / 鲍勃·冈顿 / 威廉姆·赛德勒 / 克兰西·布朗 / 更多...<br>\
-类型: 剧情 / 犯罪<br>\
-制片国家/地区: 美国<br>\
-语言: 英语<br>\
-上映日期: 1994-09-10(多伦多电影节) / 1994-10-14(美国)<br>\
-片长: 142 分钟<br>\
-又名: 月黑高飞(港) / 刺激1995(台) / 地狱诺言 / 铁窗岁月 / 消香克的救赎';
-var d = dataStr.split('<br><br><br>');
-for(i in d){
-	var con = d[i].split('<br><br>');
-	data.push({
-		image:con[0]+".jpg",
-		caption:con[0].split('、')[1],
-		descript:con[1]
-	});
-	console.log(con[0]+".jpg");
-}
-/*--------以上是数据部分-------*/
-
-
 /*1.翻面控制*/
 function turn(element){
 	var clas = element.className;
@@ -130,7 +78,7 @@ function resort(n){
 		_photo[i].className += ' photo_front ';
 		_photo[i].style.left="";
 		_photo[i].style.top='';
-		_photo[i].style['transform'] = _photo[i].style['-webkit-transform']='rotate(360deg) scale(1.2)';
+		_photo[i].style['transform'] = _photo[i].style['-webkit-transform']='rotate(360deg) scale(1.5)';
 		photos.push(_photo[i]);
 	}
 	for(let s = 0 ; s < _nav.length ; s++){
@@ -164,8 +112,7 @@ function resort(n){
 		navs[j].className = navs[j].className.replace(/i_back/,'');
 	}
 	g('#nav_'+n).className += ' i_current ';
-	console.log(g('#nav_'+n).className);
-	console.log(photos_left.length,photos_right.length);
+	console.log("左:"+photos_left.length,"右:"+photos_right.length);
 
 }
 
@@ -182,9 +129,9 @@ function range(){
 	}
 	range.wrap = wrap;
 	range.photo = photo;
-	range.left.x = [0-photo.w/2,wrap.w/2-photo.w/2-photo.w];
-	range.left.y = [0-photo.h,wrap.h];
-	range.right.x = [wrap.w/2+photo.w/2,wrap.w];
+	range.left.x = [0-photo.w/2 , wrap.w/2-photo.w/2-photo.w];
+	range.left.y = [0-photo.h/2 , wrap.h-photo.h/3];
+	range.right.x = [wrap.w/2+photo.w/2+photo.w , wrap.w];
 	range.right.y = range.left.y;
 
 	return range;
@@ -197,4 +144,64 @@ function random(range){
 	var diff = max-min;
 	var number = Math.ceil(Math.random()*diff + min);//取整
 	return number;
+}
+
+/*右侧的伸缩框（拉开时的Class:rightWrap_shrink,缩起时class:rightWrap_out）*/
+function pull(element){
+    let cls = element.className;
+    var out = new RegExp("rightWrap_out");
+    var shrink = new RegExp("rightWrap_shrink");
+    if(out.test(cls)){
+        pull_out();
+    }
+    if(shrink.test(cls)){
+        pull_shrink();
+    }
+}
+
+/*实现拉开的动作*/
+function pull_out() {
+    let rightWrap_out = g('.rightWrap_out')[0];
+    rightWrap_out.className = rightWrap_out.className.replace(/\s*rightWrap_out\s*/,'');
+    rightWrap_out.className += " rightWrap_shrink ";
+    let wrap = g('.wrap')[0];
+    wrap.className += " wrap_out ";
+}
+
+/*实现缩起的动作*/
+function pull_shrink() {
+    let rightWrap_shrink = g('.rightWrap_shrink')[0];
+    rightWrap_shrink.className = rightWrap_shrink.className.replace(/\s*rightWrap_shrink\s*/,'');
+    rightWrap_shrink.className += " rightWrap_out ";
+    let wrap = g('.wrap')[0];
+    wrap.className = wrap.className.replace(/\s*wrap_out\s*/,'');
+
+}
+
+/*图片上传功能*/
+function imgPreview(fileDom){
+    //判断是否支持FileReader
+    if (window.FileReader) {
+        var reader = new FileReader();
+    } else {
+        alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+    }
+
+    //获取文件
+    var file = fileDom.files[0];
+    var imageType = /^image\//;
+    //是否是图片
+    if (!imageType.test(file.type)) {
+        alert("请选择图片！");
+        return;
+    }
+    reader.readAsDataURL(file);
+    //读取完成
+    reader.onload = function(e) {
+        //获取图片dom
+        var img = document.getElementById("preview");
+        //图片路径设置为读取的图片
+        img.src = e.target.result;
+    };
+
 }

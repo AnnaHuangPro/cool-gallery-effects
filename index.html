@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>
-			走廊海报
+			炫酷画廊
 		</title>
 		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
@@ -12,6 +12,17 @@
 		<noscript><p>
 			本网页需要浏览器支持（启用）javascript
 		</p></noscript>
+		<div class="rightBox">
+			<div class="rightWrap_pull rightWrap_out" onclick="pull(this)" >
+				<span class="pull"></span>
+			</div>
+			<!--<div class="addButton"></div>-->
+			<div class="rightWrap">
+				<img id="preview" />
+				<br>
+				<input type="file" onchange="imgPreview(this)"/>
+			</div>
+		</div>
 		<div class="wrap" id="wrap">
 			<!-- photo负责平移和旋转 -->
 			<div class="photo photo_front" onclick="turn(this)" id="photo_{{index}}">
@@ -27,6 +38,7 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="data.js"></script>
 		<script type="text/javascript" src="index.js"></script>
 	</body>
 </html>
