@@ -1,7 +1,7 @@
 
 //canvas画图
-var c=document.getElementById("add");
-var cxt=c.getContext("2d");
+let c=document.getElementById("add");
+let cxt=c.getContext("2d");
 cxt.fillStyle="white";
 cxt.arc(280,130,20,0,Math.PI*2,true);
 cxt.moveTo(280,110);

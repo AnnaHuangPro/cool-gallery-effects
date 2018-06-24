@@ -1,11 +1,11 @@
 function upload() {
-    var xhr = new XMLHttpRequest();
-    var progress = document.getElementById("progress")
+    let xhr = new XMLHttpRequest();
+    let progress = document.getElementById("progress")
     progress.style.display = "block";
 
     xhr.upload.addEventListener("progress", function(e) {
         if (e.lengthComputable) {
-            var percentage = Math.round((e.loaded * 100) / e.total);
+            let percentage = Math.round((e.loaded * 100) / e.total);
             progress.value = percentage;
         }
     }, false);
@@ -23,8 +23,8 @@ function upload() {
             progress.value = 0;
         }
     };
-    var file = document.getElementById("imgFile");
-    var fd = new FormData();
+    let file = document.getElementById("imgFile");
+    let fd = new FormData();
     fd.append(file.files[0].name, file.files[0]);
     xhr.send(fd);
 }

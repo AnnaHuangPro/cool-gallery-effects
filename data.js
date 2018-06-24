@@ -1,6 +1,6 @@
-var data=[];
+let data=[];
 
-var dataStr = '\
+let dataStr = '\
 1、金福南杀人事件始末<br>\
 <br>\
 类    型：剧情 / 惊悚 / 恐怖 / 犯罪 <br>\
@@ -362,9 +362,9 @@ var dataStr = '\
 上映日期: 1994-09-10(多伦多电影节) / 1994-10-14(美国)<br>\
 片长: 142 分钟<br>\
 又名: 月黑高飞(港) / 刺激1995(台) / 地狱诺言 / 铁窗岁月 / 消香克的救赎';
-var d = dataStr.split('<br><br><br>');
+let d = dataStr.split('<br><br><br>');
 for(i in d){
-    var con = d[i].split('<br><br>');
+    let con = d[i].split('<br><br>');
     data.push({
         image:con[0]+".jpg",
         caption:con[0].split('、')[1],

@@ -1,5 +1,21 @@
-body{
-	overflow: hidden;
+/*兼容的好写法*/
+input{
+	background:none;
+	outline:none;
+	border:0px;
+}
+input:focus{
+	border-color:#99D3F5;
+	box-shadow: 0 0 15px #03a9f4;
+}
+textarea:focus{
+	border-color:#99D3F5;
+	box-shadow: 0 0 15px #03a9f4;
+}
+textarea{
+	background:none;
+	outline:none;
+	border:0px;
 }
 *{
 	padding: 0;
@@ -10,9 +26,30 @@ body{
 	color:#555;
 	font-family: 'Avenir Next','Lantinghei SC';
 	font-size: 14px;
+	overflow: hidden;/*清除浮动，没有上下拉框*/
 	-webkit-font-smoothing:antialiased;/* 让页面的字体更加好看 */
 	-moz-font-smoothing:antialiased;/* 解决火狐浏览器的兼容问题 */
 }
+/* 控制按钮的样式 */
+@font-face{
+    font-family:"icons";
+    src: url("./fonts/icons.woff") format("woff");
+    font-weight:normal;
+}
+/*拉伸框图标的样式*/
+@font-face{
+    font-family:"back";
+    src: url("./fonts/back.woff") format("woff");
+    font-weight:normal;
+}
+/*删除图片的样式*/
+@font-face{
+    font-family:"delete";
+    src: url("./fonts/delete.woff") format("woff");
+    font-weight:normal;
+}
+/*---以上是页面基础样式（清除部分元素的默认样式）----*/
+
 .wrap{
 	width: 100%;
 	height:600px;
@@ -27,6 +64,7 @@ body{
 	-webkit-transition:all .5s;
 }
 /* 海报样式 */
+
 .photo{
 	width: 260px;
 	height: 320px;
@@ -35,6 +73,30 @@ body{
 	box-shadow: 0 0 1px rgba(0,0,0,.01);
 	-webkit-transition: all .8s;
 	-moz-transition: all .8s;
+}
+.delete{
+    position: absolute;
+    z-index: 999;
+    right: 6%;
+    top: 1%;
+}
+.delete:hover{
+    transform: rotate(360deg) scale(1.05);
+    transition: all 0.8s;
+    -webkit-filter: brightness(1.1)
+}
+.delete:after{
+    font-family: "delete";
+    content: '\ea0f';
+    display: inline-block;
+    position: absolute;
+    left: 94%;
+    top: 2%;
+    color: gray;
+    font-weight: lighter;
+    font-size:xx-small;
+    cursor: pointer;
+    opacity: 0.5;
 }
 .photo .side{
 	width: 100%;
@@ -45,9 +107,6 @@ body{
 	background-color: #eee;
 	padding: 20px;
 	box-sizing:border-box;
-}
-.photo .side-front{
-
 }
 .photo .side-front .image{
 	width: 100%;
@@ -61,10 +120,7 @@ body{
 .photo .side-front .caption{
 	text-align: center;
 	font-size: 16px;
-	line-height: 50px;
-}
-.photo .side-back{
-
+	/*line-height: 50px;*/
 }
 .photo .side-back .descript{
 	color: #666;
@@ -115,13 +171,6 @@ body{
 	-moz-transform:rotateY(180deg);
 }
 
-/* 控制按钮的样式 */
-@font-face{
-	font-family:"icons";
-	src: url("./fonts/icons.woff") format("woff");
-	font-weight:normal;
-	/*font-size:normal;*/
-}
 
 .nav{
 	width:80%;
@@ -217,7 +266,7 @@ body{
 	right: 0;
 }
 .rightWrap_shrink{
-    right: 25%;
+    right: 30%;
 }
 .rightWrap_out:hover{
 	transform: scale(1.02);
@@ -229,14 +278,9 @@ body{
 	opacity: 0.9;
 	cursor: pointer;
 }
-@font-face{
-	font-family:"back";
-	src: url("./fonts/back.woff") format("woff");
-	font-weight:normal;
-	/*font-size:normal;*/
-}
 
-/*用css3的transform可实现水平垂直居中*/
+
+/*用css3的transform:translate可实现水平垂直居中*/
 .pull:before{
 	font-family: "back";
 	content: '\e900';
@@ -250,22 +294,27 @@ body{
 	font-size: 30px;
 }
 
+/*---以下是右侧框的样式----*/
+
 /*右侧伸缩框图标的翻转情况*/
+
 .rightWrap_shrink :before{
 	-webkit-transform: translate(-10px,-10px) rotateY(-180deg);
 	-moz-transform:translate(-10px,-10px) rotateY(-180deg);
 }
+
 .rightWrap_out :before{
 	-webkit-transform: translate(-10px,-10px) rotateY(0deg);
 	-moz-transform:translate(-10px,-10px) rotateY(0deg);
 }
 
 .rightWrap_out + .rightWrap{
-    width: 0px;
+	width: 0px;
 }
+
 .rightWrap_shrink + .rightWrap{
-    width:25%;
-    height: 600px;
+	width:30%;
+	height: 600px;
 }
 /*右侧框*/
 .rightWrap{
@@ -280,18 +329,102 @@ body{
 	-webkit-transition:all .5s;
 }
 .wrap_out{
-	right: 25%;
+	right: 30%;
 
 }
-#preview{
-	width: 60%;
-	height: 44%;
+/*右侧添加图片时的样式 块级元素的水平居中：margin:0 auto;*/
+.image_preview{
+	width: 50%;
+	height: 250px;
+	line-height: 250px;
+	overflow: hidden;
+	border: 1px solid gainsboro;
+	margin: 0 auto;
 }
-#preview + input{
-	width: 60%;
+#preview{
+	width: 100%;
 }
 
 /*右侧的父元素内的子元素都是浮动元素导致父元素的内容塌陷*/
 .rightBox{
 	clear: both;
+	text-align: center;
 }
+
+/*选择图片按钮样式的优化。思路：先把之前的按钮透明度opacity设置为0,然后，外层用div包裹，就实现了美化功能。*/
+.file{
+	position: relative;
+	display: inline-block;
+	background: #D0EEFF;
+	border: 1px solid #99D3F5;
+	border-radius: 4px;
+	padding: 4px 12px;
+	color: #1E88C7;
+	line-height: 20px;
+}
+
+.file input {
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: 0;
+	cursor: pointer;
+	filter: alpha(opacity=0);
+	width: 200%;
+}
+
+.file:hover {
+	background: #AADFFD;
+	border-color: #78C3F3;
+	color: #004974;
+	text-decoration: none;
+}
+
+.rightWrap_out + .rightWrap input{
+	display: none;
+}
+.marginT{
+	margin-top: 3%;
+}
+
+.captionWrap input{
+	width: 80%;
+	height: 32px;
+	line-height: 32px;
+	border: 1px solid #80808038;
+	border-radius: 4px;
+	padding-left: 2%;
+	margin-left: 2%;
+	color: #555;
+}
+.descriptWrap textarea{
+	border: 1px solid #80808038;
+	border-radius: 4px;
+	width: 80%;
+	margin-left: 2%;
+	height: 150px;
+	padding: 2%;
+	color: #555;
+}
+
+
+input[type="button"]{
+	background: #D0EEFF;
+	border: 1px solid #99D3F5;
+	border-radius: 16px;
+	padding: 4px 12px;
+	color: #1E88C7;
+	line-height: 20px;
+	cursor: pointer;
+	width: 72%;
+	height: 35px;
+	margin-top: 8%;
+}
+
+input[type="button"]:hover{
+	background: #AADFFD;
+	border-color: #78C3F3;
+	color: #004974;
+	text-decoration: none;
+}
+
