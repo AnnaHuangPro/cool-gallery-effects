@@ -1,6 +1,8 @@
 # cool-gallery-effects
 这是一个炫酷的画廊
 
+![](/photo/cool-gallery.png)
+
 # 编码前的VCD分析
  view control data
  
