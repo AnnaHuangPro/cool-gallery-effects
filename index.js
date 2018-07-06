@@ -3,6 +3,7 @@
 // 调试过程中可能会用到清空缓存（最开始尝试了localStorage）
 // localStorage.clear();
 
+
 /*1.翻面控制*/
 function turn(element){
 	let clas = element.className;
@@ -80,8 +81,10 @@ function g(selector){
 }*/
 
 var allLength = 0;
+var originTemplate;
 function addPhotos(){
-    let template = g('#wrap').innerHTML;
+    originTemplate = g('#wrap').innerHTML;
+    let template = originTemplate;
     let html=[];
     let nav =[];
     /*取出浏览器数据库的数量*/
@@ -98,12 +101,26 @@ function addPhotos(){
                     .replace('{{desc}}',items[s].wrap.desc);
                 html.push(_html);
                 nav.push('<span class="i" id="nav_'+s+'" onclick="turn(g(\'#photo_'+s+'\'))">&nbsp;</span>');
-            }s
+            }
             html.push('<div class="nav"> '+nav.join('')+'</div>');
             g('#wrap').innerHTML = html.join('');
             resort(random([0,items.length-1]));
         }else{
-
+            let desc = '<h3>TIP</h3>' +
+                '<p>1.点击右侧小箭头可弹出小弹框<br/>' +
+                '2.可选择图片<br>' +
+                '3.可填写图片的标题将显示在图片的下方<br>' +
+                '4.可填写图片的描述将显示在图片的背面</p>' +
+                '<strong>快试一试吧（多加几张美图效果更佳哟）</strong>';
+            let _html = template
+                .replace('{{index}}',0)
+                .replace('{{image}}',"https://github.com/jacklincao/myImages/blob/master/hexoImages/2018/03/02/Ajax1.jpg")
+                .replace('{{caption}}',"我的背后可有秘籍哦~")
+                .replace('{{desc}}',desc);
+            html.push(_html);
+            nav.push('<span class="i" id="nav_0" onclick="turn(g(\'#photo_0\'))">&nbsp;</span>');
+            html.push('<div class="nav"> '+nav.join('')+'</div>');
+            g('#wrap').innerHTML = html.join('');
         }
     });
    /*
@@ -242,6 +259,7 @@ function imgPreview(fileDom){
     }
     reader.readAsDataURL(file);
     //读取完成
+
     reader.onload = function(e) {
         //获取图片dom
         let img = document.getElementById("preview");
@@ -276,35 +294,35 @@ function imgPreview(fileDom){
 
 /*现在使用indexedDB*/
 function addOnePhotoToCoolGallery(){
-    let template = g('#wrap').innerHTML;
-    let nav = g('.nav')[0].innerHTML;
-    let wrap = arguments[0];
-    allLength++;
-    template += "<div class=\"photo photo_front\" onclick=\"turn(this)\" id='photo_"+(allLength-1)+"'>\n" +
-/*         "<span class=\"delete\" onclick=\"deletePhoto(this)\"></span>"+*/
-        "\t\t\t\t<!-- photo_wrap 负责翻转 -->\n" +
-        "\t\t\t\t<div class=\"photo_wrap\">\n" +
-        "\t\t\t\t\t<div class=\"side side-front\">\n" +
-        "\t\t\t\t\t\t<p class=\"image\"><img src='"+wrap.image+"'></p>\n" +
-        "\t\t\t\t\t\t<p class=\"caption\">"+wrap.captions+"</p>\n" +
-        "\t\t\t\t\t</div>\n" +
-        "\t\t\t\t\t<div class=\"side side-back\">\n" +
-        "\t\t\t\t\t\t<p class=\"descript\">"+wrap.desc+"</p>\n" +
-        "\t\t\t\t\t</div>\n" +
-        "\t\t\t\t</div>\n" +
-        "\t\t\t</div>"
-    g('#wrap').innerHTML = template;
-    nav +='<span class="i" id="nav_'+(allLength-1)+'" onclick="turn(g(\'#photo_'+(allLength-1)+'\'))">&nbsp;</span>';
-    g('.nav')[0].innerHTML = nav;
-    resort(allLength-1);
+        let template = g('#wrap').innerHTML;
+        let nav = g('.nav')[0].innerHTML;
+        let wrap = arguments[0];
+        allLength++;
+        template += "<div class=\"photo photo_front\" onclick=\"turn(this)\" id='photo_" + (allLength - 1) + "'>\n" +
+            /*         "<span class=\"delete\" onclick=\"deletePhoto(this)\"></span>"+*/
+            "\t\t\t\t<!-- photo_wrap 负责翻转 -->\n" +
+            "\t\t\t\t<div class=\"photo_wrap\">\n" +
+            "\t\t\t\t\t<div class=\"side side-front\">\n" +
+            "\t\t\t\t\t\t<p class=\"image\"><img src='" + wrap.image + "'></p>\n" +
+            "\t\t\t\t\t\t<p class=\"caption\">" + wrap.captions + "</p>\n" +
+            "\t\t\t\t\t</div>\n" +
+            "\t\t\t\t\t<div class=\"side side-back\">\n" +
+            "\t\t\t\t\t\t<p class=\"descript\">" + wrap.desc + "</p>\n" +
+            "\t\t\t\t\t</div>\n" +
+            "\t\t\t\t</div>\n" +
+            "\t\t\t</div>"
+        g('#wrap').innerHTML = template;
+        nav += '<span class="i" id="nav_' + (allLength - 1) + '" onclick="turn(g(\'#photo_' + (allLength - 1) + '\'))">&nbsp;</span>';
+        g('.nav')[0].innerHTML = nav;
+        resort(allLength - 1);
 }
 function firstAdd(){
-    let template = g('#wrap').innerHTML;
+    // g('#wrap').innerHTML = "";
     let wrap = arguments[0];
     let nav = [];
     let html = [];
     allLength++;
-    let _html = template
+    let _html = originTemplate
         .replace('{{index}}',0)
         .replace('{{image}}',wrap.image)
         .replace('{{caption}}',wrap.captions)
