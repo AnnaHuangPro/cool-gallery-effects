@@ -114,7 +114,7 @@ function addPhotos(){
                 '<strong>快试一试吧（多加几张美图效果更佳哟）</strong>';
             let _html = template
                 .replace('{{index}}',0)
-                .replace('{{image}}',"https://github.com/jacklincao/myImages/blob/master/hexoImages/2018/03/02/Ajax1.jpg")
+                .replace('{{image}}',"/photo/404.png")
                 .replace('{{caption}}',"我的背后可有秘籍哦~")
                 .replace('{{desc}}',desc);
             html.push(_html);
