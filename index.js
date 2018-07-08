@@ -114,7 +114,7 @@ function addPhotos(){
                 '<strong>快试一试吧（多加几张美图效果更佳哟）</strong>';
             let _html = template
                 .replace('{{index}}',0)
-                .replace('{{image}}',"/photo/indexPhoto.png")
+                .replace('{{image}}',"https://github.com/AnnaHuangPro/cool-gallery-effects/blob/master/photo/404.png")
                 .replace('{{caption}}',"我的背后可有秘籍哦~")
                 .replace('{{desc}}',desc);
             html.push(_html);
