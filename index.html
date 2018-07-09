@@ -7,7 +7,6 @@
 		</title>
 		<script type="text/javascript" src="db.js"></script>
 		<link rel="stylesheet" type="text/css" href="index.css">
-
 	</head>
 	<body onselectstart="return false;">
 		<!-- 2.改写视图为模板字符串 -->
@@ -42,7 +41,7 @@
                 <!-- photo_wrap 负责翻转 -->
 				<div class="photo_wrap">
 					<div class="side side-front">
-						<p class="image"><img src="{{image}}"></p>
+						<p class="image"><img src="photo/404.png" onerror="loadPicture(this)"></p>
 						<p class="caption">{{caption}}</p>
 					</div>
 					<div class="side side-back">

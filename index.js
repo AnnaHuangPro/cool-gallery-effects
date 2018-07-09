@@ -114,7 +114,7 @@ function addPhotos(){
                 '<strong>快试一试吧（多加几张美图效果更佳哟）</strong>';
             let _html = template
                 .replace('{{index}}',0)
-                .replace('{{image}}',"https://github.com/AnnaHuangPro/cool-gallery-effects/blob/master/photo/404.png")
+                .replace('{{image}}',"photo/404.png")
                 .replace('{{caption}}',"我的背后可有秘籍哦~")
                 .replace('{{desc}}',desc);
             html.push(_html);
@@ -362,4 +362,10 @@ function deletePhoto(item){
     app.db.delete(n, function () {
         console.log('删除成功');
     })
+}
+
+function loadPicture(){
+    console.log(arguments[0]);
+    // arguments[0].src="https://github.com/AnnaHuangPro/cool-gallery-effects/blob/master/photo/404.png";
+    // arguments[0].src="E:\\wo\\造轮子\\学习的小项目\\Cool-gallery-effects-of-CSS3-js\\cool-gallery-effects\\photo\\join.png";
 }
